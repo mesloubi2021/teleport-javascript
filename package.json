@@ -1,5 +1,5 @@
 {
-  "name": "teleport-js",
+  "name": "teleport-javascript",
   "version": "0.1.0",
   "description": "A super light and fast JavaScript object (de)serialization that includes undefined, bigint, regex, etc.",
   "unpkg": "min.js",
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/codenirvana/teleport-js.git"
+    "url": "git+https://github.com/codenirvana/teleport-javascript.git"
   },
   "keywords": [
     "circular",
@@ -34,9 +34,9 @@
   "author": "Udit Vasu",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/codenirvana/teleport-js/issues"
+    "url": "https://github.com/codenirvana/teleport-javascript/issues"
   },
-  "homepage": "https://github.com/codenirvana/teleport-js#readme",
+  "homepage": "https://github.com/codenirvana/teleport-javascript#readme",
   "devDependencies": {
     "circular-json": "latest",
     "circular-json-es6": "latest",

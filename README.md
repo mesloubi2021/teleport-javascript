@@ -1,19 +1,19 @@
-# teleport-js
+# teleport-javascript
 
 A super light (0.9K) and fast JavaScript object (de)serialization that includes undefined, bigint, regex, etc.",
 
 ### Installation
 ```console
-$ npm -i teleport-js
+$ npm -i teleport-javascript
 ```
 
 ### Usage
 ```js
 // ESM
-import {parse, stringify} from 'teleport-js/esm';
+import {parse, stringify} from 'teleport-javascript/esm';
 
 // CJS
-const {parse, stringify} = require('teleport-js/cjs');
+const {parse, stringify} = require('teleport-javascript/cjs');
 
 const a = [{}];
 a[0].a = a;
