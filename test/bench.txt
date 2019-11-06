@@ -1,0 +1,102 @@
+-----------------------------------
+Object with 7 keys each
+-----------------------------------
+CircularJSON 100 objects parsed 5.38 times per second
+CircularJSON 15481 chars parsed 2.82 times per second
+CircularJSON 50 objects parsed 11.28 times per second
+CircularJSON 7698 chars parsed 5.70 times per second
+CircularJSON 10 objects parsed 53.56 times per second
+CircularJSON 1515 chars parsed 27.61 times per second
+-----------------------------------
+circular-json-es6 100 objects parsed 19.52 times per second
+circular-json-es6 15481 chars parsed 12.51 times per second
+circular-json-es6 50 objects parsed 38.39 times per second
+circular-json-es6 7698 chars parsed 24.93 times per second
+circular-json-es6 10 objects parsed 165.88 times per second
+circular-json-es6 1515 chars parsed 116.69 times per second
+-----------------------------------
+jsan 100 objects parsed 19.53 times per second
+jsan 15481 chars parsed 11.11 times per second
+jsan 50 objects parsed 38.28 times per second
+jsan 7698 chars parsed 22.19 times per second
+jsan 10 objects parsed 164.59 times per second
+jsan 1515 chars parsed 104.92 times per second
+-----------------------------------
+flatted 100 objects parsed 4.44 times per second
+flatted 11695 chars parsed 1.50 times per second
+flatted 50 objects parsed 8.18 times per second
+flatted 5857 chars parsed 2.90 times per second
+flatted 10 objects parsed 31.91 times per second
+flatted 1336 chars parsed 13.33 times per second
+-----------------------------------
+TJS 100 objects parsed 4.22 times per second
+TJS 11695 chars parsed 1.26 times per second
+TJS 50 objects parsed 7.74 times per second
+TJS 5857 chars parsed 2.47 times per second
+TJS 10 objects parsed 30.62 times per second
+TJS 1336 chars parsed 11.31 times per second
+-----------------------------------
+50% same objects
+-----------------------------------
+CircularJSON 100 objects parsed 8.98 times per second
+CircularJSON 7988 chars parsed 4.15 times per second
+circular-json-es6 100 objects parsed 19.75 times per second
+circular-json-es6 15395 chars parsed 12.62 times per second
+jsan 100 objects parsed 19.46 times per second
+jsan 15395 chars parsed 10.85 times per second
+flatted 100 objects parsed 6.69 times per second
+flatted 6098 chars parsed 2.57 times per second
+TJS 100 objects parsed 7.10 times per second
+TJS 6098 chars parsed 2.27 times per second
+-----------------------------------
+90% same objects
+-----------------------------------
+CircularJSON 100 objects parsed 17.02 times per second
+CircularJSON 1965 chars parsed 8.99 times per second
+circular-json-es6 100 objects parsed 20.15 times per second
+circular-json-es6 15141 chars parsed 12.73 times per second
+jsan 100 objects parsed 19.92 times per second
+jsan 15141 chars parsed 11.30 times per second
+flatted 100 objects parsed 21.75 times per second
+flatted 1705 chars parsed 7.22 times per second
+TJS 100 objects parsed 19.62 times per second
+TJS 1705 chars parsed 5.71 times per second
+-----------------------------------
+with circular
+-----------------------------------
+CircularJSON 100 objects parsed 10.04 times per second
+CircularJSON 1191 chars parsed 4.67 times per second
+circular-json-es6 100 objects parsed 27.51 times per second
+circular-json-es6 1188 chars parsed 47.31 times per second
+jsan 100 objects parsed 17.71 times per second
+jsan 2391 chars parsed 14.86 times per second
+flatted 100 objects parsed 8.37 times per second
+flatted 1587 chars parsed 2.90 times per second
+TJS 100 objects parsed 6.61 times per second
+TJS 1587 chars parsed 3.80 times per second
+-----------------------------------
+with circular 90% same
+-----------------------------------
+CircularJSON 100 objects parsed 19.34 times per second
+CircularJSON 561 chars parsed 8.21 times per second
+circular-json-es6 100 objects parsed 80.70 times per second
+circular-json-es6 295 chars parsed 186.94 times per second
+jsan 100 objects parsed 15.13 times per second
+jsan 1761 chars parsed 16.01 times per second
+flatted 100 objects parsed 34.72 times per second
+flatted 514 chars parsed 8.64 times per second
+TJS 100 objects parsed 20.34 times per second
+TJS 514 chars parsed 7.12 times per second
+-----------------------------------
+Big real-world circular data
+-----------------------------------
+CircularJSON  objects parsed 0.02 times per second
+CircularJSON 545827 chars parsed 0.04 times per second
+circular-json-es6  objects parsed 0.14 times per second
+circular-json-es6 668988 chars parsed 0.14 times per second
+jsan  objects parsed 0.12 times per second
+jsan 556017 chars parsed 0.15 times per second
+flatted  objects parsed 0.06 times per second
+flatted 430631 chars parsed 0.02 times per second
+TJS  objects parsed 0.05 times per second
+TJS 430631 chars parsed 0.02 times per second
