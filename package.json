@@ -1,7 +1,7 @@
 {
-  "name": "flatted",
-  "version": "2.0.1",
-  "description": "A super light and fast circular JSON parser.",
+  "name": "teleport-js",
+  "version": "0.1.0",
+  "description": "A super light and fast JavaScript object (de)serialization that includes undefined, bigint, regex, etc.",
   "unpkg": "min.js",
   "main": "cjs/index.js",
   "module": "esm/index.js",
@@ -10,35 +10,40 @@
     "bench": "node test/bench.js",
     "build": "npm run cjs && npm test && npm run esm && npm run min && npm run size",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "cjs": "cp index.js cjs/index.js; echo 'module.exports = Flatted;' >> cjs/index.js",
-    "esm": "cp index.js esm/index.js; echo 'export default Flatted;' >> esm/index.js; echo 'export var parse = Flatted.parse;' >> esm/index.js; echo 'export var stringify = Flatted.stringify;' >> esm/index.js",
-    "min": "echo '/*! (c) 2018, Andrea Giammarchi, (ISC) */'>min.js && uglifyjs index.js --support-ie8 -c -m >> min.js",
+    "cjs": "cp index.js cjs/index.js; echo 'module.exports = TJS;' >> cjs/index.js",
+    "esm": "cp index.js esm/index.js; echo 'export default TJS;' >> esm/index.js; echo 'export var parse = TJS.parse;' >> esm/index.js; echo 'export var stringify = TJS.stringify;' >> esm/index.js",
+    "min": "terser index.js -c -m > min.js",
     "size": "cat index.js | wc -c;cat min.js | wc -c;gzip -c9 min.js | wc -c;cat min.js | brotli | wc -c",
     "test": "istanbul cover test/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WebReflection/flatted.git"
+    "url": "git+https://github.com/codenirvana/teleport-js.git"
   },
   "keywords": [
     "circular",
     "JSON",
     "fast",
     "parser",
-    "minimal"
+    "minimal",
+    "stringify",
+    "parse",
+    "serialization",
+    "deserialization"
   ],
-  "author": "Andrea Giammarchi",
+  "author": "Udit Vasu",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/WebReflection/flatted/issues"
+    "url": "https://github.com/codenirvana/teleport-js/issues"
   },
-  "homepage": "https://github.com/WebReflection/flatted#readme",
+  "homepage": "https://github.com/codenirvana/teleport-js#readme",
   "devDependencies": {
     "circular-json": "latest",
     "circular-json-es6": "latest",
     "coveralls": "latest",
+    "flatted": "latest",
     "istanbul": "latest",
     "jsan": "latest",
-    "uglify-js": "latest"
+    "terser": "latest"
   }
 }

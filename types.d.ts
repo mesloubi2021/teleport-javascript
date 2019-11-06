@@ -9,11 +9,11 @@ a[0].a = a;
 // {two: '2'} the third, in '2', and it has a string
 // which will be found at index '3'
 
-Flatted.stringify(a);
+TJS.stringify(a);
 // [["1","2"],{"one":1,"a":"0"},{"two":"3"},"2"]
 // a[one,two]    {one: 1, a}    {two: '2'}  '2'
 ```
  */
-declare const Flatted: typeof JSON;
+declare const TJS: typeof JSON;
 
-export = Flatted;
+export = TJS;
