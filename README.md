@@ -1,6 +1,6 @@
 # teleport-javascript
 
-A super light (0.9K) and fast JavaScript object (de)serialization that includes undefined, bigint, regex, etc.",
+A super light and fast JavaScript object (de)serialization that includes undefined, bigint, regex, etc.",
 
 ### Installation
 ```console
@@ -15,23 +15,27 @@ import {parse, stringify} from 'teleport-javascript/esm';
 // CJS
 const {parse, stringify} = require('teleport-javascript/cjs');
 
-const a = [{}];
-a[0].a = a;
-a.push(a);
-a[0].b = new Map([[Symbol('s'), new Set([1, /a-z/, -Infinity])]]);
-a[0].c = undefined;
+const obj = {
+  key: 'value',
+  undefined: undefined,
+  regex: /a-z/gi,
+  set: new Set([-Infinity, NaN, Infinity]),
+  bigint: 900719925474099123n
+};
+obj.circular = obj;
 
-const stringified = stringify(a);
-// '[["1","0"],{"a":"0","b":"_0","c":"_1"},["M;[[\\"1\\"],[\\"_0\\",\\"_1\\"],[\\"s;s\\",\\"S;[[1,\\\\\\"_0\\\\\\",\\\\\\"_1\\\\\\"],[\\\\\\"R;/a-z/\\\\\\",\\\\\\"n;-Infinity\\\\\\"]]\\"]]","u"]]'
+const stringified = stringify(obj);
+// '[{"key":"1","undefined":"_0","regex":"_1","set":"_2","bigint":"_3","circular":"0"},"value",["u","R;/a-z/gi","S;[[\\"_0\\",\\"_1\\",\\"_2\\"],[\\"n;-Infinity\\",\\"n;NaN\\",\\"n;Infinity\\"]]","b;900719925474099123"]]'
 
 const parsed = parse(stringified);
-// [
-//   {
-//     a: [ [Circular], [Circular] ],
-//     b: Map { Symbol(s) => Set { 1, /a-z/, -Infinity } },
-//     c: undefined
-//   }
-// ]
+// {
+//   key: 'value',
+//   undefined: undefined,
+//   regex: /a-z/gi,
+//   set: Set { -Infinity, NaN, Infinity },
+//   bigint: 900719925474099123n,
+//   circular: [Circular]
+// }
 ```
 
 ### Supported Data Types
@@ -42,6 +46,15 @@ const parsed = parse(stringified);
 * Null
 * Undefined
 * Array
+  - Int8Array
+  - Uint8Array
+  - Uint8ClampedArray
+  - Int16Array
+  - Uint16Array
+  - Int32Array
+  - Uint32Array
+  - Float32Array
+  - Float64Array
 * Symbol
 * Object _(including circular reference)_
   - RegExp
