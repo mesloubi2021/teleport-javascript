@@ -1,16 +1,25 @@
-var TJS = (function (Primitive, primitive) {
+var TeleportJS = (function (Primitive, primitive) {
 
    var REF_KEY_PREFIX = '_';
    var REF_SEPARATOR = ';';
    var SINGLE_REF = REF_KEY_PREFIX + '0';
    var REF_PREFIX = {
-     undefined: 'u',
-     number: 'n',
-     bigint: 'b',
-     symbol: 's',
-     RegExp: 'R',
-     Map: 'M',
-     Set: 'S'
+      undefined: 'u',
+      number: 'n',
+      bigint: 'b',
+      symbol: 's',
+      RegExp: 'R',
+      Map: 'M',
+      Set: 'S',
+      Int8Array: 'A',
+      Uint8Array: 'B',
+      Uint8ClampedArray: 'C',
+      Int16Array: 'D',
+      Uint16Array: 'E',
+      Int32Array: 'F',
+      Uint32Array: 'G',
+      Float32Array: 'H',
+      Float64Array: 'I'
    };
 
   /*!
@@ -19,7 +28,7 @@ var TJS = (function (Primitive, primitive) {
    * Copyright (c) 2018, Andrea Giammarchi, @WebReflection
    */
 
-  var TJS = {
+  var TeleportJS = {
 
     parse: function parse(text, reviver) {
       var input = JSON.parse(text, Primitives).map(primitives);
@@ -81,7 +90,7 @@ var TJS = (function (Primitive, primitive) {
 
   };
 
-  return TJS;
+  return TeleportJS;
 
   function noop(key, value) {
     return value;
@@ -108,10 +117,37 @@ var TJS = (function (Primitive, primitive) {
         refs[index] = new RegExp(parts[1], parts[2]);
         break;
       case REF_PREFIX.Map:
-        refs[index] = new Map(TJS.parse(value));
+        refs[index] = new Map(TeleportJS.parse(value));
         break;
       case REF_PREFIX.Set:
-        refs[index] = new Set(TJS.parse(value));
+        refs[index] = new Set(TeleportJS.parse(value));
+        break;
+      case REF_PREFIX.Int8Array:
+        refs[index] = new Int8Array(JSON.parse(value));
+        break;
+      case REF_PREFIX.Uint8Array:
+        refs[index] = new Uint8Array(JSON.parse(value));
+        break;
+      case REF_PREFIX.Uint8ClampedArray:
+        refs[index] = new Uint8ClampedArray(JSON.parse(value));
+        break;
+      case REF_PREFIX.Int16Array:
+        refs[index] = new Int16Array(JSON.parse(value));
+        break;
+      case REF_PREFIX.Uint16Array:
+        refs[index] = new Uint16Array(JSON.parse(value));
+        break;
+      case REF_PREFIX.Int32Array:
+        refs[index] = new Int32Array(JSON.parse(value));
+        break;
+      case REF_PREFIX.Uint32Array:
+        refs[index] = new Uint32Array(JSON.parse(value));
+        break;
+      case REF_PREFIX.Float32Array:
+        refs[index] = new Float32Array(JSON.parse(value));
+        break;
+      case REF_PREFIX.Float64Array:
+        refs[index] = new Float64Array(JSON.parse(value));
         break;
     }
 
@@ -177,7 +213,10 @@ var TJS = (function (Primitive, primitive) {
         after = REF_PREFIX.symbol + REF_SEPARATOR + description.substring(7, description.length - 1);
         break;
       case 'object':
-        if (value instanceof RegExp) {
+        if (value === null) {
+          break;
+        }
+        else if (value instanceof RegExp) {
           after = REF_PREFIX.RegExp + REF_SEPARATOR + Primitive(value);
         }
         else if (value instanceof Map) {
@@ -185,14 +224,50 @@ var TJS = (function (Primitive, primitive) {
           for (var i of value.entries()) {
             m.push(i);
           }
-          after = REF_PREFIX.Map + REF_SEPARATOR + TJS.stringify(m);
+          after = REF_PREFIX.Map + REF_SEPARATOR + TeleportJS.stringify(m);
         }
         else if (value instanceof Set) {
           var s = [];
           for (var i of value.values()) {
             s.push(i);
           }
-          after = REF_PREFIX.Set + REF_SEPARATOR + TJS.stringify(s);
+          after = REF_PREFIX.Set + REF_SEPARATOR + TeleportJS.stringify(s);
+        }
+        else if (value instanceof Int8Array) {
+          after = REF_PREFIX.Int8Array + REF_SEPARATOR +
+            JSON.stringify(Array.apply([], value));
+        }
+        else if (value instanceof Uint8Array) {
+          after = REF_PREFIX.Uint8Array + REF_SEPARATOR +
+            JSON.stringify(Array.apply([], value));
+        }
+        else if (value instanceof Uint8ClampedArray) {
+          after = REF_PREFIX.Uint8ClampedArray + REF_SEPARATOR +
+            JSON.stringify(Array.apply([], value));
+        }
+        else if (value instanceof Int16Array) {
+          after = REF_PREFIX.Int16Array + REF_SEPARATOR +
+            JSON.stringify(Array.apply([], value));
+        }
+        else if (value instanceof Uint16Array) {
+          after = REF_PREFIX.Uint16Array + REF_SEPARATOR +
+            JSON.stringify(Array.apply([], value));
+        }
+        else if (value instanceof Int32Array) {
+          after = REF_PREFIX.Int32Array + REF_SEPARATOR +
+            JSON.stringify(Array.apply([], value));
+        }
+        else if (value instanceof Uint32Array) {
+          after = REF_PREFIX.Uint32Array + REF_SEPARATOR +
+            JSON.stringify(Array.apply([], value));
+        }
+        else if (value instanceof Float32Array) {
+          after = REF_PREFIX.Float32Array + REF_SEPARATOR +
+            JSON.stringify(Array.apply([], value));
+        }
+        else if (value instanceof Float64Array) {
+          after = REF_PREFIX.Float64Array + REF_SEPARATOR +
+            JSON.stringify(Array.apply([], value));
         }
         break;
     }
