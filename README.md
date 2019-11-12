@@ -1,6 +1,8 @@
 # teleport-javascript
 
-A super light and fast JavaScript object (de)serialization that includes undefined, bigint, regex, etc.",
+[![Coverage Status](https://coveralls.io/repos/github/codenirvana/teleport-javascript/badge.svg?branch=master)](https://coveralls.io/github/codenirvana/teleport-javascript?branch=master) [![Build Status](https://travis-ci.org/codenirvana/teleport-javascript.svg?branch=master)](https://travis-ci.org/codenirvana/teleport-javascript) [![License: ISC](https://img.shields.io/badge/License-ISC-yellow.svg)](https://opensource.org/licenses/ISC)
+
+A super light and fast JavaScript object (de)serialization that includes undefined, bigint, regex, etc.
 
 ### Installation
 ```console
@@ -9,11 +11,7 @@ $ npm -i teleport-javascript
 
 ### Usage
 ```js
-// ESM
-import {parse, stringify} from 'teleport-javascript/esm';
-
-// CJS
-const {parse, stringify} = require('teleport-javascript/cjs');
+const {parse, stringify} = require('teleport-javascript');
 
 const obj = {
   key: 'value',
