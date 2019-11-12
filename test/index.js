@@ -417,5 +417,24 @@ if (typeof Symbol !== 'undefined') {
   console.assert(TJS.parse(TJS.stringify(/^a-z$/gi)).toString() === '/^a-z$/gi', 'supports regex');
   console.assert(TJS.parse(TJS.stringify(Symbol('tjs'))) === Symbol.for('tjs'), 'supports symbol');
   console.assert(isSetsEqual(TJS.parse(TJS.stringify(new Set([1, 2, 3]))), new Set([1, 2, 3])), 'supports set');
-  console.assert(isSetsEqual(TJS.parse(TJS.stringify(new Map([[1, '1'], [2, '2']]))), new Map([[1, '1'], [2, '2']])), 'supports map');
+  console.assert(isMapsEqual(TJS.parse(TJS.stringify(new Map([[1, '1'], [2, '2']]))), new Map([[1, '1'], [2, '2']])), 'supports map');
+}());
+
+(function () {
+  isEqual = (a, b) => a.length === b.length && a.every((value, i) => b[i] === value);
+
+  [ Int8Array,
+    Uint8Array,
+    Uint8ClampedArray,
+    Int16Array,
+    Uint16Array,
+    Int32Array,
+    Uint32Array,
+    Float32Array,
+    Float64Array,
+  ].map(Type => {
+    var arr = new Type([1, 2, 3]);
+    var a = TJS.parse(TJS.stringify(arr));
+    console.assert(isEqual(a, arr), `supports ${Type.name}`);
+  });
 }());
