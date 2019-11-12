@@ -8,18 +8,20 @@ var TeleportJS = (function (Primitive, primitive) {
       number: 'n',
       bigint: 'b',
       symbol: 's',
-      RegExp: 'R',
       Map: 'M',
       Set: 'S',
-      Int8Array: 'A',
-      Uint8Array: 'B',
-      Uint8ClampedArray: 'C',
-      Int16Array: 'D',
-      Uint16Array: 'E',
+      Date: 'D',
+      RegExp: 'R',
+      Buffer: 'B',
+      Int8Array: 'H',
+      Uint8Array: 'I',
+      Uint8ClampedArray: 'J',
+      Int16Array: 'P',
+      Uint16Array: 'Q',
       Int32Array: 'F',
       Uint32Array: 'G',
-      Float32Array: 'H',
-      Float64Array: 'I'
+      Float32Array: 'K',
+      Float64Array: 'L'
    };
 
   /*!
@@ -58,7 +60,7 @@ var TeleportJS = (function (Primitive, primitive) {
         i = +set(known, input, $.call({'': value}, '', value)),
         replace = function (key, value) {
           var after = $.call(this, key, value);
-          var refIndex = setRefs(knownRefs, refs, after);
+          var refIndex = setRefs(knownRefs, refs, key, after, this);
 
           if (refIndex) {
             return refIndex;
@@ -115,6 +117,12 @@ var TeleportJS = (function (Primitive, primitive) {
       case REF_PREFIX.RegExp:
         var parts = /\/(.*)\/(.*)/.exec(value);
         refs[index] = new RegExp(parts[1], parts[2]);
+        break;
+      case REF_PREFIX.Buffer:
+        refs[index] = Buffer.from(JSON.parse(value));
+        break;
+      case REF_PREFIX.Date:
+        refs[index] = new Date(value);
         break;
       case REF_PREFIX.Map:
         refs[index] = new Map(TeleportJS.parse(value));
@@ -192,10 +200,15 @@ var TeleportJS = (function (Primitive, primitive) {
     return index;
   }
 
-  function setRefs(known, refs, value) {
+  function setRefs(known, refs, key, value, obj) {
     var after;
 
     switch (typeof value) {
+      case 'string':
+        if (obj[key] instanceof Date) {
+          after = REF_PREFIX.Date + REF_SEPARATOR + value;
+        }
+        break;
       case 'undefined':
         after = REF_PREFIX.undefined;
         break;
@@ -215,6 +228,9 @@ var TeleportJS = (function (Primitive, primitive) {
       case 'object':
         if (value === null) {
           break;
+        }
+        else if (value.type === 'Buffer' && value.data && Buffer.isBuffer(obj[key])) {
+          after = REF_PREFIX.Buffer + REF_SEPARATOR + JSON.stringify(value.data);
         }
         else if (value instanceof RegExp) {
           after = REF_PREFIX.RegExp + REF_SEPARATOR + Primitive(value);
