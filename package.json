@@ -1,18 +1,19 @@
 {
   "name": "teleport-javascript",
   "version": "0.2.0",
-  "description": "A super light and fast JavaScript object (de)serialization that includes undefined, bigint, regex, etc.",
+  "description": "A super light and fast JavaScript object (de)serialization that includes date, bigint, regex, etc.",
   "unpkg": "min.js",
   "main": "cjs/index.js",
   "module": "esm/index.js",
   "types": "types.d.ts",
   "scripts": {
     "bench": "node test/bench.js",
-    "build": "npm run cjs && npm test && npm run esm && npm run min && npm run size",
+    "build": "npm run cjs && npm test && npm run esm && npm run lint && npm run min && npm run size",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "cjs": "cp index.js cjs/index.js; echo 'module.exports = TeleportJS;' >> cjs/index.js",
-    "esm": "cp index.js esm/index.js; echo 'export default TeleportJS;' >> esm/index.js; echo 'export var parse = TeleportJS.parse;' >> esm/index.js; echo 'export var stringify = TeleportJS.stringify;' >> esm/index.js",
-    "min": "terser index.js -c -m > min.js",
+    "cjs": "cp index.js cjs/index.js; echo 'module.exports = TeleportJS' >> cjs/index.js",
+    "esm": "cp index.js esm/index.js; echo 'export default TeleportJS' >> esm/index.js; echo 'export var parse = TeleportJS.parse' >> esm/index.js; echo 'export var stringify = TeleportJS.stringify' >> esm/index.js",
+    "lint": "standard index.js",
+    "min": "terser index.js -c -m --comments '/^$/' > min.js",
     "size": "cat index.js | wc -c;cat min.js | wc -c;gzip -c9 min.js | wc -c;cat min.js | brotli | wc -c",
     "test": "istanbul cover test/index.js"
   },
@@ -21,15 +22,14 @@
     "url": "git+https://github.com/codenirvana/teleport-javascript.git"
   },
   "keywords": [
-    "circular",
     "JSON",
-    "fast",
-    "parser",
-    "minimal",
+    "circular",
+    "cyclic",
     "stringify",
     "parse",
     "serialization",
-    "deserialization"
+    "date",
+    "bigint"
   ],
   "author": "Udit Vasu",
   "license": "ISC",
@@ -44,6 +44,16 @@
     "flatted": "latest",
     "istanbul": "latest",
     "jsan": "latest",
+    "standard": "latest",
     "terser": "latest"
+  },
+  "standard": {
+    "globals": [
+      "BigInt"
+    ],
+    "ignore": [
+      "test",
+      "min.js"
+    ]
   }
 }

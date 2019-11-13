@@ -73,7 +73,7 @@ console.assert(TJS.parse(TJS.stringify(null)) === null, 'null can be parsed too'
 console.assert(TJS.parse(TJS.stringify('test')) === 'test', 'strings can be parsed too');
 
 var d = new Date;
-console.assert(TJS.parse(TJS.stringify(d)) === d.toISOString(), 'dates can be parsed too');
+console.assert(TJS.parse(TJS.stringify(d)).toISOString() === d.toISOString(), 'dates can be parsed too');
 
 console.assert(TJS.parse(
   TJS.stringify(d),
@@ -370,7 +370,7 @@ if (typeof Symbol !== 'undefined') {
     var a = [1, Symbol('test'), 2];
     o[Symbol('test')] = 123;
     console.assert(('[' + JSON.stringify(o) + ']') === TJS.stringify(o), 'Symbol is OK too');
-    console.assert(('[[1,"_0",2],["s;test"]]') === TJS.stringify(a), 'non symbol is OK too');
+    console.assert(('[[1,"_0",2],["stest"]]') === TJS.stringify(a), 'non symbol is OK too');
   }());
 }
 
@@ -413,6 +413,8 @@ if (typeof Symbol !== 'undefined') {
   console.assert(TJS.parse(TJS.stringify({x: undefined, y: undefined})).hasOwnProperty('x'), 'retains undefined keys');
   console.assert(TJS.parse(TJS.stringify(undefined)) === undefined, 'supports undefined');
   console.assert(TJS.parse(TJS.stringify(Infinity)) === Infinity, 'supports non-finite numbers');
+  console.assert(TJS.parse(TJS.stringify(new Date('2018-06-04T07:00:00.000Z'))).getTime() === 1528095600000, 'supports date');
+  console.assert(TJS.parse(TJS.stringify(Buffer.from('yolo!'))).toString() === 'yolo!', 'supports buffer');
   console.assert(TJS.parse(TJS.stringify(900719925474099123n)) === 900719925474099123n, 'supports bigint');
   console.assert(TJS.parse(TJS.stringify(/^a-z$/gi)).toString() === '/^a-z$/gi', 'supports regex');
   console.assert(TJS.parse(TJS.stringify(Symbol('tjs'))) === Symbol.for('tjs'), 'supports symbol');
