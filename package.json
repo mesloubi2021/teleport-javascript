@@ -1,6 +1,6 @@
 {
   "name": "teleport-javascript",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "A super light and fast JavaScript object (de)serialization that includes date, bigint, regex, etc.",
   "unpkg": "min.js",
   "main": "cjs/index.js",
