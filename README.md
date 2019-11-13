@@ -3,7 +3,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/codenirvana/teleport-javascript/badge.svg?branch=master)](https://coveralls.io/github/codenirvana/teleport-javascript?branch=master) [![Build Status](https://travis-ci.org/codenirvana/teleport-javascript.svg?branch=master)](https://travis-ci.org/codenirvana/teleport-javascript) [![License: ISC](https://img.shields.io/badge/License-ISC-yellow.svg)](https://opensource.org/licenses/ISC) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 
-A super light and fast JavaScript object (de)serialization that includes date, bigint, regex, etc.
+A super light and fast JavaScript object (de)serialization that includes Date, BigInt, RegExp, etc.
 
 ### Installation
 ```console
@@ -19,12 +19,13 @@ const obj = {
   undefined: undefined,
   regex: /a-z/gi,
   set: new Set([-Infinity, NaN, Infinity]),
-  bigint: 900719925474099123n
+  bigint: 900719925474099123n,
+  symbol: Symbol('key')
 };
 obj.circular = obj;
 
 const stringified = stringify(obj);
-// '[{"key":"1","undefined":"_0","regex":"_1","set":"_2","bigint":"_3","circular":"0"},"value",["u","R;/a-z/gi","S;[[\\"_0\\",\\"_1\\",\\"_2\\"],[\\"n;-Infinity\\",\\"n;NaN\\",\\"n;Infinity\\"]]","b;900719925474099123"]]'
+// '[{"key":"1","undefined":"_0","regex":"_1","set":"_2","bigint":"_3","symbol":"_4","circular":"0"},"value",["u","R/a-z/gi","S[[\\"_0\\",\\"_1\\",\\"_2\\"],[\\"n-Infinity\\",\\"nNaN\\",\\"nInfinity\\"]]","b900719925474099123","skey"]]'
 
 const parsed = parse(stringified);
 // {
@@ -33,6 +34,7 @@ const parsed = parse(stringified);
 //   regex: /a-z/gi,
 //   set: Set { -Infinity, NaN, Infinity },
 //   bigint: 900719925474099123n,
+//   symbol: Symbol(key),
 //   circular: [Circular]
 // }
 ```
@@ -42,6 +44,7 @@ const parsed = parse(stringified);
 * Number _(including NaN, Infinity, -Infinity)_
 * BigInt
 * Boolean
+* Symbol
 * Null
 * Undefined
 * Array
@@ -54,7 +57,6 @@ const parsed = parse(stringified);
   - Uint32Array
   - Float32Array
   - Float64Array
-* Symbol
 * Object _(including circular reference)_
   - Date
   - Buffer
